@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "{{cookiecutter.project_slug}}"
+version = "0.1.0"
+description = ""
+authors = ["mohadese-yousefi <mohadeseyusefi1997@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "4.2"
+djangorestframework = "^3.14.0"
+django-environ = "^0.10.0"
+django-cors-headers = "^3.14.0"
+drf-spectacular = "^0.26.1"
+django-filter = "^23.1"
+psycopg2 = "^2.9.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
