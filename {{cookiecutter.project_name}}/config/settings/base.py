@@ -72,21 +72,39 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
+{% if cookiecutter.database  == 'postgres' -%}
 DATABASES = {
-    'default': env.db('DATABASE_URL', default='psql://postgres:postgres@127.0.0.1:5432/{{cookiecutter.project_slug}}'),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME', 'default_db'),
+        'USER': os.environ.get('DB_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'postgres'),
+        'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
+        'PORT': '5432',
+    }
 }
+{%- elif cookiecutter.database.lower() == 'sqlite' -%}
+DATABASES = {
+        "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "db.sqlite3",
+        }
+    }
+{%- elif cookiecutter.database == 'mysql' -%}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('DB_NAME', 'default_db'),
+        'USER': os.environ.get('DB_USER', 'mysql'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
+        'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
+        'PORT': '3306',
+    }
+}
+{%- endif %}
+
+
 DATABASES['default']['ATOMIC_REQUESTS'] = True
-
-
-#DATABASES = {
-#        "default": {
-#        "ENGINE": "django.db.backends.sqlite3",
-#        "NAME": "db.sqlite3",
-#        }
-#    }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
