@@ -13,7 +13,11 @@ django-environ = "^0.10.0"
 django-cors-headers = "^3.14.0"
 drf-spectacular = "^0.26.1"
 django-filter = "^23.1"
+{% if cookiecutter.database  == 'postgres' -%}
 psycopg2 = "^2.9.6"
+{%- elif cookiecutter.database == 'mysql' -%}
+mysqlclient = "2.1.1"
+{%- endif %}
 
 
 [build-system]
